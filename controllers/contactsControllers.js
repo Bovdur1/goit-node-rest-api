@@ -56,6 +56,10 @@ export const createContact = async (req, res, next) => {
 
 export const updateContact = async (req, res, next) => {
   const { id } = req.params;
+  const { name, email, phone } = req.body;
+  if (!name && !email && !phone) {
+    res.status(400).json({ message: "Body must have at least one field" });
+  }
   try {
     const contact = await contactsService.updateContact(id, req.body);
 
